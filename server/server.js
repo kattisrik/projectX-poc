@@ -29,6 +29,20 @@ db.initialize(
         response.json("successfully inserted user");
       });
     });
+    server.get("/details", function (req, res) {
+      dbCollection.find().toArray(function (err, result) {
+        if (err) throw err;
+        res.send(result);
+      });
+    });
+    server.get("/details/:path", function (req, res) {
+      dbCollection
+        .find({ path: req.params.path })
+        .toArray(function (err, result) {
+          if (err) throw err;
+          res.send(result[0]);
+        });
+    });
   },
   function (err) {
     // failureCallback
